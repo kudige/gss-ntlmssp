@@ -14,7 +14,7 @@ void gssntlm_debug_init(void)
 {
     char *env;
 
-    env = secure_getenv("GSSNTLMSSP_DEBUG");
+    env = NULL; //secure_getenv("GSSNTLMSSP_DEBUG");
     if (env) {
         debug_fd = fopen(env, "a");
         if (debug_fd) gssntlm_debug_enabled = true;

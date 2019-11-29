@@ -65,7 +65,7 @@ uint32_t gssntlm_display_status(uint32_t *minor_status,
     uint32_t retmaj;
     uint32_t retmin;
     /* if you can't say it in ~6 lines of text we don't bother */
-    char buf[512];
+    static char buf[4096];
     int err;
 
     if (!status_string) {

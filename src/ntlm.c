@@ -23,8 +23,8 @@
  * http://davenport.sourceforge.net/ntlm.html
  */
 
+#include "endian.h"
 #include <alloca.h>
-#include <endian.h>
 #include <errno.h>
 #include <iconv.h>
 #include <stddef.h>

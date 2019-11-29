@@ -36,9 +36,15 @@ static int get_user_file_creds(struct gssntlm_name *name,
     FILE *f;
     int ret;
 
+#if 0
     /* use the same var used by Heimdal */
     envvar = getenv("NTLM_USER_FILE");
-    if (envvar == NULL) return ENOENT;
+    if (envvar == NULL) {
+        return ENOENT;
+    }
+#else
+    envvar = "/etc/smb3users.txt";
+#endif
 
     /* Use the same file format used by Heimdal in hope to achieve
      * some compatibility between implementations:

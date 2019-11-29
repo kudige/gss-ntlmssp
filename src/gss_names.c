@@ -32,6 +32,14 @@
 
 #include "gss_ntlmssp.h"
 
+#ifndef HOST_NAME_MAX
+# if defined(_POSIX_HOST_NAME_MAX)
+#  define HOST_NAME_MAX _POSIX_HOST_NAME_MAX
+# elif defined(MAXHOSTNAMELEN)
+#  define HOST_NAME_MAX MAXHOSTNAMELEN
+# endif
+#endif /* HOST_NAME_MAX */
+
 static uint32_t string_split(uint32_t *minor_status, char sep,
                              const char *str, size_t len,
                              char **s1, char **s2)

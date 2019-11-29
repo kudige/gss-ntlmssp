@@ -16,7 +16,7 @@
 */
 
 #ifndef _NTLM_H_
-#define _NTLM_H
+#define _NTLM_H_
 
 #include <stdbool.h>
 
