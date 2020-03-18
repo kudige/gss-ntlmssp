@@ -36,6 +36,9 @@ static int get_user_file_creds(struct gssntlm_name *name,
     FILE *f;
     int ret;
 
+    printf ("**** %s called ****\n", __FUNCTION__);
+    fflush(stdout);
+
     /* use the same var used by Heimdal */
     envvar = getenv("NTLM_USER_FILE");
     if (envvar == NULL) return ENOENT;
@@ -67,6 +70,8 @@ static int get_user_file_creds(struct gssntlm_name *name,
             break;
         }
 
+	printf("*** found user [%s] pass [%s] netuser [%s] ***\n", usr, pwd, name->data.user.name);
+	fflush(stdout);
         if (name->data.user.domain) {
             if (!ntlm_casecmp(dom, name->data.user.domain)) continue;
         }

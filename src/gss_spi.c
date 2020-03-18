@@ -209,6 +209,19 @@ OM_uint32 gss_get_mic(OM_uint32 *minor_status,
 }
 
 
+OM_uint32 gss_extended_get_session_key(OM_uint32 *minor_status,
+                      gss_ctx_id_t context_handle,
+                      gss_qop_t qop_req,
+                      gss_buffer_t sessionkey)
+{
+    return gssntlm_get_session_key(minor_status,
+                           context_handle,
+                           qop_req,
+                           sessionkey);
+}
+
+
+
 OM_uint32 gss_verify_mic(OM_uint32 *minor_status,
                          gss_ctx_id_t context_handle,
                          gss_buffer_t message_buffer,

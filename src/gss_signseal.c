@@ -14,7 +14,7 @@
    You should have received a copy of the GNU Lesser General Public
    License along with this library; if not, see <http://www.gnu.org/licenses/>.
 */
-
+#include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
@@ -105,6 +105,35 @@ uint32_t gssntlm_verify_mic(uint32_t *minor_status,
         return GSSERRS(0, GSS_S_BAD_SIG);
     }
 
+    return GSSERRS(0, GSS_S_COMPLETE);
+}
+
+uint32_t gssntlm_get_session_key(uint32_t *minor_status,
+                         gss_ctx_id_t context_handle,
+                         gss_qop_t qop_req,
+                         gss_buffer_t sessionkey)
+{
+    struct gssntlm_ctx *ctx;
+    uint32_t retmaj, retmin;
+
+    ctx = (struct gssntlm_ctx *)context_handle;
+    retmaj = gssntlm_context_is_valid(ctx, NULL);
+    if (retmaj != GSS_S_COMPLETE) {
+        return GSSERRS(ERR_BADCTX, retmaj);
+    }
+    if (qop_req != GSS_C_QOP_DEFAULT) {
+        return GSSERRS(ERR_BADARG, GSS_S_BAD_QOP);
+    }
+
+    sessionkey->value = malloc(ctx->exported_session_key.length);
+    if (!sessionkey->value) {
+        return GSSERRS(ENOMEM, GSS_S_FAILURE);
+    }
+    sessionkey->length = ctx->exported_session_key.length;
+    printf("*** sessionkey %p buf %p len %ld\n", sessionkey, sessionkey->value, sessionkey->length);
+
+    memmove(sessionkey->value, ctx->exported_session_key.data, ctx->exported_session_key.length);
+    
     return GSSERRS(0, GSS_S_COMPLETE);
 }
 

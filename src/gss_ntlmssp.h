@@ -334,6 +334,11 @@ uint32_t gssntlm_verify_mic(uint32_t *minor_status,
                             gss_buffer_t message_buffer,
                             gss_buffer_t message_token,
                             gss_qop_t *qop_state);
+                            
+uint32_t gssntlm_get_session_key(uint32_t *minor_status,
+                         gss_ctx_id_t context_handle,
+                         gss_qop_t qop_req,
+                         gss_buffer_t sessionkey);
 
 uint32_t gssntlm_wrap(uint32_t *minor_status,
                       gss_ctx_id_t context_handle,

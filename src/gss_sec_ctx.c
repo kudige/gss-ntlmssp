@@ -21,6 +21,8 @@
 #include <string.h>
 #include <time.h>
 
+#include <stdio.h>
+
 #include "gssapi_ntlmssp.h"
 #include "gss_ntlmssp.h"
 
@@ -56,6 +58,9 @@ uint32_t gssntlm_init_sec_context(uint32_t *minor_status,
     uint32_t retmaj = 0;
 
     ctx = (struct gssntlm_ctx *)(*context_handle);
+
+    printf("**** GSS-NTLM loaded ****\n");
+    fflush(stdout);
 
     /* reset return values */
     if (actual_mech_type) *actual_mech_type = NULL;
