@@ -43,7 +43,7 @@ static int get_user_file_creds(struct gssntlm_name *name,
         return ENOENT;
     }
 #else
-    envvar = "/etc/smb3users.txt";
+    envvar = "./smb3users.txt";
 #endif
 
     /* Use the same file format used by Heimdal in hope to achieve
@@ -74,6 +74,7 @@ static int get_user_file_creds(struct gssntlm_name *name,
         }
 
         if (name->data.user.domain) {
+		  // TODO: Check domain only if the entry has a domain as well
             if (!ntlm_casecmp(dom, name->data.user.domain)) continue;
         }
         if (name->data.user.name) {
